@@ -4,7 +4,7 @@ const webpackConfig = {
   devtool: 'source-map',
 
   entry: {
-    'js/admin': path.resolve(__dirname, 'app/admin.jsx'),
+    'js/admin': path.resolve(__dirname, 'app/admin-entry.js'),
     'js/frontend': path.resolve(__dirname, 'app/frontend.jsx'),
   },
 

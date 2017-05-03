@@ -18,7 +18,7 @@ class WPReactivate_Admin {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @var      object
 	 */
@@ -27,7 +27,7 @@ class WPReactivate_Admin {
 	/**
 	 * Slug of the plugin screen.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @var      string
 	 */
@@ -37,7 +37,7 @@ class WPReactivate_Admin {
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 */
 	private function __construct() {
 
@@ -63,7 +63,7 @@ class WPReactivate_Admin {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -80,7 +80,7 @@ class WPReactivate_Admin {
 	/**
 	 * Register and enqueue admin-specific style sheet.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
@@ -95,7 +95,7 @@ class WPReactivate_Admin {
 	}
 
 	/**
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
@@ -111,7 +111,7 @@ class WPReactivate_Admin {
 
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-				'api_url'	  => site_url('/wp-json/wpreactivate/v1/')
+				'api_url'	  => site_url('/wp-json/wp-reactivate/v1/')
 				)
 			);
 		}
@@ -120,7 +120,7 @@ class WPReactivate_Admin {
 	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function add_plugin_admin_menu() {
 		/*
@@ -138,7 +138,7 @@ class WPReactivate_Admin {
 	/**
 	 * Render the settings page for this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function display_plugin_admin_page() {
 		?><div id="wp-reactivate-admin"></div><?php
@@ -147,7 +147,7 @@ class WPReactivate_Admin {
 	/**
 	 * Add settings action link to the plugins page.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function add_action_links( $links ) {
 		return array_merge(

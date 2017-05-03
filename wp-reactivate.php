@@ -29,13 +29,14 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );
+add_action( 'plugins_loaded', array( 'WPReactivate', 'get_instance' ) );
 
-
+if ( is_admin() ) {
+    require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-admin.php' );
+    add_action( 'plugins_loaded', array( 'WPReactivate_Admin', 'get_instance' ) );
+}
 /*
  * Register activation and deactivation hooks
  */
 register_activation_hook( __FILE__, array( 'WPReactivate', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'WPReactivate', 'deactivate' ) );
-
-
-add_action( 'plugins_loaded', array( 'WPReactivate', 'get_instance' ) );

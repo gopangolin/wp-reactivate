@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-reactivate.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );
 
 
 /*

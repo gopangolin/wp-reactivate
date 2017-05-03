@@ -1,0 +1,37 @@
+{
+  "name": "wp-reactivate",
+  "version": "0.1.0",
+  "description": "React boilerplate for WordPress plugins",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gopangolin/wp-reactivate.git"
+  },
+  "keywords": [
+    "wordpress",
+    "react",
+    "plugin",
+    "webpack"
+  ],
+  "author": "Pangolin",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/gopangolin/wp-reactivate/issues"
+  },
+  "homepage": "https://github.com/gopangolin/wp-reactivate#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "eslint": "^3.19.0",
+    "webpack": "^2.4.1"
+  }
+}

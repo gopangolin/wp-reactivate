@@ -86,6 +86,6 @@ class WPReactivate_Shortcode {
 
         wp_localize_script( $this->plugin_slug . '-shortcode-script', 'wpr_object', $object );
 
-        ?><div id="wpreactivate-frontend"></div><?php
+        ?><div id="wp-reactivate-frontend"></div><?php
     }
 }

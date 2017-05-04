@@ -1,8 +1,8 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Admin from './Admin.jsx';
+import Frontend from './Frontend.jsx';
 
 document.addEventListener('DOMContentLoaded', function() {
-  ReactDOM.render(<Admin />, document.getElementById('wp-reactivate-admin'));
+  ReactDOM.render(<Frontend />, document.getElementById('wp-reactivate-frontend'));
 });

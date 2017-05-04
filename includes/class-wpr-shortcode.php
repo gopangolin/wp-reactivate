@@ -73,10 +73,12 @@ class WPReactivate_Shortcode {
 	 */
 	public function register_frontend_scripts() {
         wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/frontend.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
+		wp_register_style( $this->plugin_slug . '-shortcode-style', plugins_url( 'assets/css/shortcode.css', dirname( __FILE__ ) ), $this->version );
 	}
 
     public function shortcode( $atts ) {
         wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
+		wp_enqueue_style( $this->plugin_slug . '-shortcode-style');
 
         $object = shortcode_atts( array(
             'title'       => 'Hello world',

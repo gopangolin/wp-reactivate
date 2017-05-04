@@ -42,6 +42,25 @@ class WPReactivate_Admin {
 	 */
 	protected $plugin_screen_hook_suffix = null;
 
+
+	/**
+	 * Return an instance of this class.
+	 *
+	 * @since     0.1.0
+	 *
+	 * @return    object    A single instance of this class.
+	 */
+	public static function get_instance() {
+
+		// If the single instance hasn't been set, set it now.
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+			self::$instance->do_hooks();
+		}
+
+		return self::$instance;
+	}
+
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
@@ -75,24 +94,6 @@ class WPReactivate_Admin {
 	}
 
 	/**
-	 * Return an instance of this class.
-	 *
-	 * @since     0.1.0
-	 *
-	 * @return    object    A single instance of this class.
-	 */
-	public static function get_instance() {
-
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-			self::$instance->do_hooks();
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * Register and enqueue admin-specific style sheet.
 	 *
 	 * @since     0.1.0
@@ -120,7 +121,7 @@ class WPReactivate_Admin {
 		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
 			return;
 		}
-		
+
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
 

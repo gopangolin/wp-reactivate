@@ -27,15 +27,25 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'WP_REACTIVATE_VERSION', '0.1.0' );
+
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );
-add_action( 'plugins_loaded', array( 'WPReactivate', 'get_instance' ) );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-admin.php' );
 
-if ( is_admin() ) {
-    require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-admin.php' );
-    add_action( 'plugins_loaded', array( 'WPReactivate_Admin', 'get_instance' ) );
+add_action( 'plugins_loaded', 'wp_reactivate_init' );
+/**
+ * Initialize Plugin
+ */
+function wp_reactivate_init() {
+    $wpr = WPReactivate::get_instance();
+
+    if ( is_admin() ) {
+        $wpr_admin = WPReactivate_Admin::get_instance();
+    }
 }
-/*
+
+/**
  * Register activation and deactivation hooks
  */
 register_activation_hook( __FILE__, array( 'WPReactivate', 'activate' ) );

@@ -16,20 +16,11 @@
 class WPReactivate {
 
 	/**
-	 * Plugin version, used for cache-busting of style and script file references.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var     string
-	 */
-	const VERSION = '1.0.0';
-
-	/**
 	 * The variable name is used as the text domain when internationalizing strings
 	 * of text. Its value should match the Text Domain file header in the main
 	 * plugin file.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @var      string
 	 */
@@ -38,25 +29,25 @@ class WPReactivate {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @var      object
 	 */
 	protected static $instance = null;
 
 	/**
-	 * Initialize the plugin by setting localization and loading public scripts
-	 * and styles.
+	 * Setup instance attributes
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 */
 	private function __construct() {
+		$this->plugin_version = WP_REACTIVATE_VERSION;
 	}
 
 	/**
 	 * Return the plugin slug.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @return    Plugin slug variable.
 	 */
@@ -64,10 +55,21 @@ class WPReactivate {
 		return $this->plugin_slug;
 	}
 
+		/**
+	 * Return the plugin version.
+	 *
+	 * @since    0.1.0
+	 *
+	 * @return    Plugin slug variable.
+	 */
+	public function get_plugin_version() {
+		return $this->plugin_version;
+	}
+
 	/**
 	 * Fired when the plugin is activated.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public static function activate() {
 
@@ -76,7 +78,7 @@ class WPReactivate {
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public static function deactivate() {
 	}
@@ -85,7 +87,7 @@ class WPReactivate {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */

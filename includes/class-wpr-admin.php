@@ -25,6 +25,15 @@ class WPReactivate_Admin {
 	protected static $instance = null;
 
 	/**
+	 * Plugin basename.
+	 *
+	 * @since    0.1.0
+	 *
+	 * @var      string
+	 */
+	protected $plugin_basename = null;
+
+	/**
 	 * Slug of the plugin screen.
 	 *
 	 * @since    0.1.0
@@ -40,14 +49,20 @@ class WPReactivate_Admin {
 	 * @since     0.1.0
 	 */
 	private function __construct() {
-
-		/*
-		 * Call $plugin_slug from public plugin class.
-		 *
-		 */
 		$plugin = WPReactivate::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
+		$this->version = $plugin->get_plugin_version();
 
+		$this->plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
+	}
+
+
+	/**
+	 * Handle WP actions and filters.
+	 *
+	 * @since 	0.1.0
+	 */
+	private function do_hooks() {
 		// Load admin style sheet and JavaScript.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
@@ -55,9 +70,8 @@ class WPReactivate_Admin {
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
-		// Add an action link pointing to the options page.
-		$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
-		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
+		// Add plugin action link point to settings page
+		add_filter( 'plugin_action_links_' . $this->plugin_basename, array( $this, 'add_action_links' ) );
 	}
 
 	/**
@@ -72,6 +86,7 @@ class WPReactivate_Admin {
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
+			self::$instance->do_hooks();
 		}
 
 		return self::$instance;
@@ -90,11 +105,13 @@ class WPReactivate_Admin {
 		}
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_style( $this->plugin_slug .'-table', plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ), array(), WPReactivate::VERSION );
+			wp_enqueue_style( $this->plugin_slug .'-table', plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ), array(), $this->version );
 		}
 	}
 
 	/**
+	 * Register and enqueue admin-specific javascript
+	 *
 	 * @since     0.1.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
@@ -107,7 +124,7 @@ class WPReactivate_Admin {
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
 
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), WPReactivate::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),

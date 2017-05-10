@@ -72,13 +72,14 @@ class WPReactivate_Shortcode {
 	 * @since     0.1.0
 	 */
 	public function register_frontend_scripts() {
-        wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/frontend.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
+        wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 	}
 
     public function shortcode( $atts ) {
         wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
 
         $object = shortcode_atts( array(
+			// Add your default attributes and values here
             'title'       => 'Hello world',
             'api_nonce'   => wp_create_nonce( 'wp_rest' ),
             'api_url'	  => site_url('/wp-json/wp-reactivate/v1/'),

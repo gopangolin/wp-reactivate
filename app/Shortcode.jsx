@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Frontend extends Component {
+export default class Shortcode extends Component {
   render() {
     return (
       <div className="wrap">

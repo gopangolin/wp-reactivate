@@ -5,7 +5,8 @@ const webpackConfig = {
 
   entry: {
     'js/admin': path.resolve(__dirname, 'app/admin-entry.js'),
-    'js/frontend': path.resolve(__dirname, 'app/frontend-entry.js'),
+    'js/shortcode': path.resolve(__dirname, 'app/shortcode-entry.js'),
+    'js/widget': path.resolve(__dirname, 'app/widget-entry.js'),
   },
 
   output: {

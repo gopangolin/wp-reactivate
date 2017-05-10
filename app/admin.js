@@ -4,7 +4,7 @@ if (! window._babelPolyfill) {
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Admin from './Admin.jsx';
+import Admin from './containers/Admin.jsx';
 
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(<Admin />, document.getElementById('wp-reactivate-admin'));

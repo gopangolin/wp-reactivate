@@ -4,8 +4,8 @@ if (! window._babelPolyfill) {
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Shortcode from './Shortcode.jsx';
+import Widget from './containers/Widget.jsx';
 
 document.addEventListener('DOMContentLoaded', function() {
-  ReactDOM.render(<Shortcode />, document.getElementById('wp-reactivate-shortcode'));
+  ReactDOM.render(<Widget />, document.getElementById('wp-reactivate-widget'));
 });

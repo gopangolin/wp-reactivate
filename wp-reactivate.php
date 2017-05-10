@@ -33,10 +33,12 @@ define( 'WP_REACTIVATE_VERSION', '0.1.0' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-admin.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-shortcode.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-widget.php' );
 
-add_action( 'plugins_loaded', 'wp_reactivate_init' );
 /**
  * Initialize Plugin
+ *
+ * @since 0.1.0
  */
 function wp_reactivate_init() {
     $wpr = WPReactivate::get_instance();
@@ -46,6 +48,17 @@ function wp_reactivate_init() {
         $wpr_admin = WPReactivate_Admin::get_instance();
     }
 }
+add_action( 'plugins_loaded', 'wp_reactivate_init' );
+
+/**
+ * Register the widget
+ *
+ * @since 0.1.0
+ */
+function wp_reactivate_widget() {
+	register_widget( 'WPR_Widget' );
+}
+add_action( 'widgets_init', 'wp_reactivate_widget' );
 
 /**
  * Register activation and deactivation hooks

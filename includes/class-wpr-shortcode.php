@@ -24,7 +24,7 @@ class WPReactivate_Shortcode {
 	 */
 	protected static $instance = null;
 
-    /**
+	/**
 	 * Return an instance of this class.
 	 *
 	 * @since     0.1.0
@@ -36,7 +36,7 @@ class WPReactivate_Shortcode {
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
-            self::$instance->do_hooks();
+			self::$instance->do_hooks();
 		}
 
 		return self::$instance;
@@ -49,12 +49,12 @@ class WPReactivate_Shortcode {
 	 * @since     0.1.0
 	 */
 	private function __construct() {
-        $plugin = WPReactivate::get_instance();
+		$plugin = WPReactivate::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 		$this->version = $plugin->get_plugin_version();
 
-        add_shortcode( 'wp-reactivate', array( $this, 'shortcode') );
-    }
+		add_shortcode( 'wp-reactivate', array( $this, 'shortcode' ) );
+	}
 
 
 	/**
@@ -63,31 +63,31 @@ class WPReactivate_Shortcode {
 	 * @since 	0.1.0
 	 */
 	private function do_hooks() {
-        add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_scripts' ) );
 	}
 
-    /**
+	/**
 	 * Register frontend-specific javascript
 	 *
 	 * @since     0.1.0
 	 */
 	public function register_frontend_scripts() {
-        wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
+		wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 		wp_register_style( $this->plugin_slug . '-shortcode-style', plugins_url( 'assets/css/shortcode.css', dirname( __FILE__ ) ), $this->version );
 	}
 
-    public function shortcode( $atts ) {
-        wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
-		wp_enqueue_style( $this->plugin_slug . '-shortcode-style');
+	public function shortcode( $atts ) {
+		wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
+		wp_enqueue_style( $this->plugin_slug . '-shortcode-style' );
 
-        $object = shortcode_atts( array(
-            'title'       => 'Hello world',
-            'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-            'api_url'	  => site_url('/wp-json/wp-reactivate/v1/'),
-        ), $atts, 'wp-reactivate' );
+		$object = shortcode_atts( array(
+			'title'       => 'Hello world',
+			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
+			'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
+		), $atts, 'wp-reactivate' );
 
-        wp_localize_script( $this->plugin_slug . '-shortcode-script', 'wpr_object', $object );
+		wp_localize_script( $this->plugin_slug . '-shortcode-script', 'wpr_object', $object );
 
-        ?><div id="wp-reactivate-shortcode"></div><?php
-    }
+		?><div id="wp-reactivate-shortcode"></div><?php
+	}
 }

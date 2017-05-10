@@ -41,12 +41,12 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-widget.php' );
  * @since 0.1.0
  */
 function wp_reactivate_init() {
-    $wpr = WPReactivate::get_instance();
-    $wpr_shortcode = WPReactivate_Shortcode::get_instance();
+	$wpr = WPReactivate::get_instance();
+	$wpr_shortcode = WPReactivate_Shortcode::get_instance();
 
-    if ( is_admin() ) {
-        $wpr_admin = WPReactivate_Admin::get_instance();
-    }
+	if ( is_admin() ) {
+		$wpr_admin = WPReactivate_Admin::get_instance();
+	}
 }
 add_action( 'plugins_loaded', 'wp_reactivate_init' );
 

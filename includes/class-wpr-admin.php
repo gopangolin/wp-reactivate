@@ -106,7 +106,7 @@ class WPReactivate_Admin {
 		}
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_style( $this->plugin_slug .'-table', plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ), array(), $this->version );
+			wp_enqueue_style( $this->plugin_slug . '-table', plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ), array(), $this->version );
 		}
 	}
 
@@ -129,7 +129,7 @@ class WPReactivate_Admin {
 
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-				'api_url'	  => site_url('/wp-json/wp-reactivate/v1/')
+				'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
 				)
 			);
 		}
@@ -170,7 +170,7 @@ class WPReactivate_Admin {
 	public function add_action_links( $links ) {
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>',
 			),
 			$links
 		);

@@ -31,7 +31,7 @@ entry: {
 ```
   
 ### Using the Shortcode
-In order to get the shortcode attributes into our Javascript we need to pass them to an object which will be made available to the *shortcode.js* app via *wp_localize_script*. Be careful with the security of data you pass here as this will be output in a <script> tag in the rendered html.
+In order to get the shortcode attributes into our Javascript we need to pass them to an object which will be made available to the *shortcode.js* app via ```wp_localize_script```. Be careful with the security of data you pass here as this will be output in a ```<script>``` tag in the rendered html.
   
 *includes/class-wpr-shortcode.php*
 ```php =79
@@ -50,7 +50,7 @@ public function shortcode( $atts ) {
 ```
 
 ### Using the Widget
-In order to get the widget options into our Javascript we need to pass them to an object which will be made available to the *widget.js* app via *wp_localize_script*.
+In order to get the widget options into our Javascript we need to pass them to an object which will be made available to the *widget.js* app via ```wp_localize_script```. Be careful with the security of data you pass here as this will be output in a ```<script>``` tag in the rendered html.
   
 *includes/class-wpr-widget.php*
 ```php =41
@@ -78,8 +78,6 @@ public function widget( $args, $instance ) {
 |  [Babel](http://babeljs.io) |  Compiles next generation JS features to ES5. Enjoy the new version of JavaScript, today. |
 | [Webpack](http://webpack.js.org) | For bundling our JavaScript assets. |
 | [ESLint](http://eslint.org/)| Pluggable linting utility for JavaScript and JSX  |
-
-## Tutorials
 
 ## Credits
 *Created by [Pangolin](https://gopangolin.com)*

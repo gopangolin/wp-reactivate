@@ -22,7 +22,7 @@ The boilerplate plugin provides three different WordPress views in which an inde
 Each JavaScript root file will correspond to the independant React app to be bundled by Webpack.
 
 *webpack.config.js*
-```javascript=6
+```javascript =6
 entry: {
   'js/admin': path.resolve(__dirname, 'app/admin.js'),
   'js/shortcode': path.resolve(__dirname, 'app/shortcode.js'),
@@ -34,7 +34,7 @@ entry: {
 In order to get the shortcode attributes into our Javascript we need to pass them to an object which will be made available to the *shortcode.js* app via *wp_localize_script*. Be careful with the security of data you pass here as this will be output in a <script> tag in the rendered html.
   
 *includes/class-wpr-shortcode.php*
-```php=79
+```php =79
 public function shortcode( $atts ) {
   wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
   wp_enqueue_style( $this->plugin_slug . '-shortcode-style' );
@@ -53,7 +53,7 @@ public function shortcode( $atts ) {
 In order to get the widget options into our Javascript we need to pass them to an object which will be made available to the *widget.js* app via *wp_localize_script*.
   
 *includes/class-wpr-widget.php*
-```php=41
+```php =41
 public function widget( $args, $instance ) {
   wp_enqueue_script( $this->plugin_slug . '-widget-script', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 

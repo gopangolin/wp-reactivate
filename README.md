@@ -32,7 +32,7 @@ entry: {
   
 ### Using the Shortcode
 In order to get the shortcode attributes into our Javascript we need to pass them to an object which will be made available to the *shortcode.js* app via ```wp_localize_script```. Be careful with the security of data you pass here as this will be output in a ```<script>``` tag in the rendered html.
-  
+
 *includes/class-wpr-shortcode.php*
 ```php =79
 public function shortcode( $atts ) {
@@ -49,9 +49,27 @@ public function shortcode( $atts ) {
 }
 ```
 
+You can access the shortcode attributes via the ```wpr_object``` in your React container component.
+
+*app/containers/Shortcode.jsx* 
+```javascript=1
+import React, { Component } from 'react';
+
+export default class Shortcode extends Component {
+  render() {
+    return (
+      <div className="wrap">
+        <h1>WP Reactivate Frontend</h1>
+        <p>Title: {wpr_object.title}</p>
+      </div>
+    );
+  }
+}
+```
 ### Using the Widget
 In order to get the widget options into our Javascript we need to pass them to an object which will be made available to the *widget.js* app via ```wp_localize_script```. Be careful with the security of data you pass here as this will be output in a ```<script>``` tag in the rendered html.
-  
+
+
 *includes/class-wpr-widget.php*
 ```php =41
 public function widget( $args, $instance ) {
@@ -70,7 +88,62 @@ public function widget( $args, $instance ) {
   echo $args['after_widget'];
 }
 ```
+You can access the widget options via the ```wpr_object``` in your React container component.
 
+*app/containers/Widget.jsx* 
+```javascript =1
+import React, { Component } from 'react';
+
+export default class Widget extends Component {
+  render() {
+    return (
+      <div className="wrap">
+        <h1>WP Reactivate Widget</h1>
+        <p>Title: {wpr_object.title}</p>
+      </div>
+    );
+  }
+}
+
+```
+### Using the Settings Page
+In our admin class we add a sub menu page to the Settings menu using ```add_options_page``` and register a setting to be used on the page.
+
+We set ```'show_in_rest'``` to ```true``` when registering our setting in order to access our options via the REST API.
+
+*includes/class-wpr-admin.php*
+```php =187
+public function register_settings() {
+    register_setting( 'general', 'wpreactivate', array(
+        'show_in_rest' 	=> true,
+        'type'			=> 'string',
+        'description'	=> __( 'WP Reactivate Settings', $this->plugin_slug )
+    ) );
+}
+```
+
+In the React container component we show how to retrieve and update this setting via the WordPress REST API default Settings  endpoint.
+
+We polyfill the browser [Fetch API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) to make requests to the WordPress REST API. It is a powerful API, which can be seen as an evolution of XMLHttpRequest or alternative to jQuery.ajax().
+
+*app/containers/Admin.jsx*
+```javascript
+getSetting = () => {
+    fetch(`${wpr_object.api_url}settings`, {
+        credentials: 'same-origin',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': wpr_object.api_nonce,
+        },
+    })
+    .then(response => response.json())
+    .then(
+        (json) => this.setState({ settings: json.wpreactivate }),
+        (err) => console.log('error', err)
+    );
+};
+```
 ## Technologies
 | **Tech** | **Description** |
 |----------|-------|
@@ -80,4 +153,4 @@ public function widget( $args, $instance ) {
 | [ESLint](http://eslint.org/)| Pluggable linting utility for JavaScript and JSX  |
 
 ## Credits
-*Created by [Pangolin](https://gopangolin.com)*
+*Made by [Pangolin](https://gopangolin.com)*

@@ -13,7 +13,7 @@
  * Plugin Name:       WP-Reactivate
  * Plugin URI:        https://gopangolin.com
  * Description:       React boilerplate for WordPress plugins
- * Version:           0.1.0
+ * Version:           0.8.0
  * Author:            pangolin
  * Author URI:        https://gopangolin.com
  * Text Domain:       wp-reactivate
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WP_REACTIVATE_VERSION', '0.1.0' );
+define( 'WP_REACTIVATE_VERSION', '0.8.0' );
 
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );
@@ -38,7 +38,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-widget.php' );
 /**
  * Initialize Plugin
  *
- * @since 0.1.0
+ * @since 0.8.0
  */
 function wp_reactivate_init() {
 	$wpr = WPReactivate::get_instance();
@@ -50,7 +50,7 @@ add_action( 'plugins_loaded', 'wp_reactivate_init' );
 /**
  * Register the widget
  *
- * @since 0.1.0
+ * @since 0.8.0
  */
 function wp_reactivate_widget() {
 	register_widget( 'WPR_Widget' );

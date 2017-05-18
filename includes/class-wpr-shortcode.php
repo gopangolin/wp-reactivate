@@ -18,7 +18,7 @@ class WPReactivate_Shortcode {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    0.1.0
+	 * @since    0.8.0
 	 *
 	 * @var      object
 	 */
@@ -27,7 +27,7 @@ class WPReactivate_Shortcode {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     0.1.0
+	 * @since     0.8.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -46,7 +46,7 @@ class WPReactivate_Shortcode {
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
-	 * @since     0.1.0
+	 * @since     0.8.0
 	 */
 	private function __construct() {
 		$plugin = WPReactivate::get_instance();
@@ -60,7 +60,7 @@ class WPReactivate_Shortcode {
 	/**
 	 * Handle WP actions and filters.
 	 *
-	 * @since 	0.1.0
+	 * @since 	0.8.0
 	 */
 	private function do_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_scripts' ) );
@@ -69,7 +69,7 @@ class WPReactivate_Shortcode {
 	/**
 	 * Register frontend-specific javascript
 	 *
-	 * @since     0.1.0
+	 * @since     0.8.0
 	 */
 	public function register_frontend_scripts() {
 		wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
@@ -82,7 +82,6 @@ class WPReactivate_Shortcode {
 
 		$object = shortcode_atts( array(
 			'title'       => 'Hello world',
-
 			/* If you wish to make REST API requests
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
 			'api_url'	  => site_url( '/wp-json/wp/v2/' ), */

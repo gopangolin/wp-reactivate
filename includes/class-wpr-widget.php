@@ -18,7 +18,7 @@ class WPR_Widget extends WP_Widget {
 	/**
 	 * Initialize the widget
 	 *
-	 * @since 0.1.0
+	 * @since 0.8.0
 	 */
 	public function __construct() {
 		$plugin = WPReactivate::get_instance();

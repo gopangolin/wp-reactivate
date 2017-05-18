@@ -20,7 +20,7 @@ class WPReactivate {
 	 * of text. Its value should match the Text Domain file header in the main
 	 * plugin file.
 	 *
-	 * @since    0.1.0
+	 * @since    0.8.0
 	 *
 	 * @var      string
 	 */
@@ -29,7 +29,7 @@ class WPReactivate {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    0.1.0
+	 * @since    0.8.0
 	 *
 	 * @var      object
 	 */
@@ -38,7 +38,7 @@ class WPReactivate {
 	/**
 	 * Setup instance attributes
 	 *
-	 * @since     0.1.0
+	 * @since     0.8.0
 	 */
 	private function __construct() {
 		$this->plugin_version = WP_REACTIVATE_VERSION;
@@ -47,7 +47,7 @@ class WPReactivate {
 	/**
 	 * Return the plugin slug.
 	 *
-	 * @since    0.1.0
+	 * @since    0.8.0
 	 *
 	 * @return    Plugin slug variable.
 	 */
@@ -58,7 +58,7 @@ class WPReactivate {
 		/**
 	 * Return the plugin version.
 	 *
-	 * @since    0.1.0
+	 * @since    0.8.0
 	 *
 	 * @return    Plugin slug variable.
 	 */
@@ -69,7 +69,7 @@ class WPReactivate {
 	/**
 	 * Fired when the plugin is activated.
 	 *
-	 * @since    0.1.0
+	 * @since    0.8.0
 	 */
 	public static function activate() {
 		update_option( 'wpreactivate', 'Test Value' );
@@ -78,7 +78,7 @@ class WPReactivate {
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
-	 * @since    0.1.0
+	 * @since    0.8.0
 	 */
 	public static function deactivate() {
 	}
@@ -87,7 +87,7 @@ class WPReactivate {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     0.1.0
+	 * @since     0.8.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */

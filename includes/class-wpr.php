@@ -72,7 +72,7 @@ class WPReactivate {
 	 * @since    0.1.0
 	 */
 	public static function activate() {
-
+		update_option( 'wpreactivate', 'Test Value' );
 	}
 
 	/**

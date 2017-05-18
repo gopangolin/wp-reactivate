@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 
 export default class Admin extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      settings: false
+      settings: undefined
     };
 
     this.getSetting();
@@ -23,7 +23,7 @@ export default class Admin extends Component {
     })
     .then(response => response.json())
     .then(
-      (json) => this.setState({ settings: json }),
+      (json) => this.setState({ settings: json.wpreactivate }),
       (err) => console.log('error', err)
     );
   };
@@ -31,21 +31,26 @@ export default class Admin extends Component {
   updateSetting = () => {
     fetch(`${wpr_object.api_url}settings`, {
       credentials: 'same-origin',
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'X-WP-Nonce': wpr_object.api_nonce,
       },
       body: JSON.stringify({
-        key: 'test',
-        value: 'hello'
+        wpreactivate: this.state.settings,
       }),
     })
     .then(response => response.json())
     .then(
-      (json) => this.setState({ settings: json }),
+      (json) => this.setState({ settings: json.wpreactivate }),
       (err) => console.log('error', err)
     );
+  }
+
+  updateInput = (e) => {
+    this.setState({
+      settings: e.target.value,
+    })
   }
 
   render() {
@@ -55,21 +60,15 @@ export default class Admin extends Component {
 
         <input
           type="text"
-          ref={(input) => { this.nameInput = input; }}
-          value={this.state.settings.name}
-        />
-
-        <input
-          type="text"
-          ref={(input) => { this.emailInput = input; }}
-          value={this.state.settings.email}
+          value={this.state.settings}
+          onChange={this.updateInput}
         />
 
         <input
           type="submit"
           id="submit"
           className="button button-primary"
-          value={'Submit'}
+          value={'Save'}
           onClick={this.updateSetting}
         />
       </div>

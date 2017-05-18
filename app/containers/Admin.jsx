@@ -43,7 +43,7 @@ export default class Admin extends Component {
     })
     .then(response => response.json())
     .then(
-      (json) => console.log('success', json),
+      (json) => this.setState({ settings: json }),
       (err) => console.log('error', err)
     );
   }
@@ -55,7 +55,14 @@ export default class Admin extends Component {
 
         <input
           type="text"
-          value={this.state.settings.test}
+          ref={(input) => { this.nameInput = input; }}
+          value={this.state.settings.name}
+        />
+
+        <input
+          type="text"
+          ref={(input) => { this.emailInput = input; }}
+          value={this.state.settings.email}
         />
 
         <input

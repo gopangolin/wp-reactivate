@@ -124,9 +124,15 @@ class WPR_Admin_Controller {
 
         $settings[$key] = $value;
 
-        update_option( 'wpr_settings', json_encode( $settings ) );
+        $update = update_option( 'wpr_settings', json_encode( $settings ) );
 
-        return new WP_REST_Response( 'success', 200 );
+        if ( ! $update ) {
+            return new WP_REST_Response( __( 'Update Setting Failed', 'wpreactivate' ), 200 );
+        }
+
+        $new_settings = json_decode( get_option( 'wpr_settings' ), true );
+
+        return new WP_REST_Response( $new_settings, 200 );
     }
 
     /**

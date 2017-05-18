@@ -13,11 +13,11 @@ WP Reactivate is a React boilerplate built specifically for WordPress, allowing 
 
 ## Quick Start
 ### Introduction
-The boilerplate plugin provides three different WordPress views in which an independant React app can be rendered. Namely:
+This boilerplate plugin provides three different WordPress views in which an independant React app can be rendered:
 
-- Settings page in the backend (wp-admin).
-- Shortcode.
+- Shortcode
 - Widget
+- Settings page in the backend (wp-admin)
 
 Each JavaScript root file will correspond to the independant React app to be bundled by Webpack.
 

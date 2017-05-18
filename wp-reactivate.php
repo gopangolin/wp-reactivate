@@ -32,6 +32,7 @@ define( 'WP_REACTIVATE_VERSION', '0.1.0' );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-admin.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-admin-controller.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-shortcode.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-widget.php' );
 
@@ -43,6 +44,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-widget.php' );
 function wp_reactivate_init() {
 	$wpr = WPReactivate::get_instance();
 	$wpr_shortcode = WPReactivate_Shortcode::get_instance();
+	$wpr_admin_controller = WPR_Admin_Controller::get_instance();
+
 
 	if ( is_admin() ) {
 		$wpr_admin = WPReactivate_Admin::get_instance();

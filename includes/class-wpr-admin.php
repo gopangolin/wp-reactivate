@@ -132,7 +132,7 @@ class WPReactivate_Admin {
 
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-				'api_url'	  => site_url( '/wp-json/wp/v2/' ),
+				'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
 				)
 			);
 		}

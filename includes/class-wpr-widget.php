@@ -29,7 +29,7 @@ class WPR_Widget extends WP_Widget {
 			'description' => esc_html__( 'WP Reactivate demo widget.', 'wp-reactivate' ),
 		);
 
-		parent::__construct( 'wpr-widget', esc_html__( 'WP Reactivate', 'wp-reactivate' ), $options );
+		parent::__construct( 'wpr-widget', esc_html__( 'WP Reactivate', 'wp-reactivate' ), $widget_ops );
 	}
 
 	/**
@@ -44,9 +44,8 @@ class WPR_Widget extends WP_Widget {
 
 		$object = array(
 			'title'       => $instance['title'],
-			/* If you wish to make REST API requests
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'	  => site_url( '/wp-json/wp/v2/' ), */
+			'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
 		);
 
 		wp_localize_script( $this->plugin_slug . '-widget-script', 'wpr_object', $object );

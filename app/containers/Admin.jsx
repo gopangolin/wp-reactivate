@@ -31,7 +31,7 @@ export default class Admin extends Component {
   updateSetting = () => {
     fetch(`${wpr_object.api_url}settings`, {
       credentials: 'same-origin',
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-WP-Nonce': wpr_object.api_nonce,
@@ -53,24 +53,31 @@ export default class Admin extends Component {
     })
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.updateSetting();
+  }
+
   render() {
     return (
       <div className="wrap">
         <h1>WP Reactivate Settings</h1>
-
-        <input
-          type="text"
-          value={this.state.settings}
-          onChange={this.updateInput}
-        />
-
-        <input
-          type="submit"
-          id="submit"
-          className="button button-primary"
-          value={'Save'}
-          onClick={this.updateSetting}
-        />
+        <form onSubmit={this.handleSubmit}>
+          <label>
+          Demo Setting:
+            <input
+              type="text"
+              value={this.state.settings}
+              onChange={this.updateInput}
+            />
+          </label>
+          <input
+            type="submit"
+            id="submit"
+            className="button button-primary"
+            value={'Save'}
+          />
+        </form>
       </div>
     );
   }

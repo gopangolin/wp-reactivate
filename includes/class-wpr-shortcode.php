@@ -82,13 +82,13 @@ class WPReactivate_Shortcode {
 
 		$object = shortcode_atts( array(
 			'title'       => 'Hello world',
-			/* If you wish to make REST API requests
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'	  => site_url( '/wp-json/wp/v2/' ), */
+			'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', 'wpr_object', $object );
 
-		?><div id="wp-reactivate-shortcode"></div><?php
+		$shortcode = "<div id='wp-reactivate-shortcode'></div>";
+		return $shortcode;
 	}
 }

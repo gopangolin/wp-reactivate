@@ -42,17 +42,19 @@ class WPR_Widget extends WP_Widget {
 		wp_enqueue_script( $this->plugin_slug . '-widget-script', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 		wp_enqueue_style( $this->plugin_slug . '-widget-style', plugins_url( 'assets/css/widget.css', dirname( __FILE__ ) ), $this->version );
 
+		$object_name = 'wpr_object_' . uniqid();
+
 		$object = array(
 			'title'       => $instance['title'],
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
 			'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
 		);
 
-		wp_localize_script( $this->plugin_slug . '-widget-script', 'wpr_object', $object );
+		wp_localize_script( $this->plugin_slug . '-widget-script', $object_name, $object );
 
 		echo $args['before_widget'];
 
-		?><div id="wp-reactivate-widget"></div><?php
+		?><div class="wp-reactivate-widget" data-object-id="<?php echo $object_name ?>"></div><?php
 
 		echo $args['after_widget'];
 	}

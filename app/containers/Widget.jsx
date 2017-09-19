@@ -5,7 +5,7 @@ export default class Widget extends Component {
     return (
       <div className="wrap">
         <h1>WP Reactivate Widget</h1>
-        <p>Title: {wpr_object.title}</p>
+        <p>Title: {this.props.wpObject.title}</p>
       </div>
     );
   }

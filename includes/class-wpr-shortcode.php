@@ -80,15 +80,17 @@ class WPReactivate_Shortcode {
 		wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
 		wp_enqueue_style( $this->plugin_slug . '-shortcode-style' );
 
+		$object_name = 'wpr_object_' . uniqid();
+
 		$object = shortcode_atts( array(
 			'title'       => 'Hello world',
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
 			'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
 		), $atts, 'wp-reactivate' );
 
-		wp_localize_script( $this->plugin_slug . '-shortcode-script', 'wpr_object', $object );
+		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );
 
-		$shortcode = "<div id='wp-reactivate-shortcode'></div>";
+		$shortcode = '<div class="wp-reactivate-shortcode" data-object-id="' . $object_name . '"></div>';
 		return $shortcode;
 	}
 }

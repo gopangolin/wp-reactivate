@@ -13,12 +13,12 @@ export default class Admin extends Component {
   }
 
   getSetting = () => {
-    fetch(`${wpr_object.api_url}settings`, {
+    fetch(`${this.props.wpObject.api_url}settings`, {
       credentials: 'same-origin',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'X-WP-Nonce': wpr_object.api_nonce,
+        'X-WP-Nonce': this.props.wpObject.api_nonce,
       },
     })
     .then(response => response.json())
@@ -29,12 +29,12 @@ export default class Admin extends Component {
   };
 
   updateSetting = () => {
-    fetch(`${wpr_object.api_url}settings`, {
+    fetch(`${this.props.wpObject.api_url}settings`, {
       credentials: 'same-origin',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-WP-Nonce': wpr_object.api_nonce,
+        'X-WP-Nonce': this.props.wpObject.api_nonce,
       },
       body: JSON.stringify({
         wpreactivate: this.state.settings,

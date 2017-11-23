@@ -39,13 +39,18 @@ public function shortcode( $atts ) {
   wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
   wp_enqueue_style( $this->plugin_slug . '-shortcode-style' );
 
+  $object_name = 'wpr_object_' . uniqid();
+
   $object = shortcode_atts( array(
     'title'       => 'Hello world',
+    'api_nonce'   => wp_create_nonce( 'wp_rest' ),
+    'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
   ), $atts, 'wp-reactivate' );
 
-  wp_localize_script( $this->plugin_slug . '-shortcode-script', 'wpr_object', $object );
+  wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );
 
-  ?><div id="wp-reactivate-shortcode"></div><?php
+  $shortcode = '<div class="wp-reactivate-shortcode" data-object-id="' . $object_name . '"></div>';
+  return $shortcode;
 }
 ```
 
@@ -74,16 +79,21 @@ In order to get the widget options into our Javascript we need to pass them to a
 ```php =41
 public function widget( $args, $instance ) {
   wp_enqueue_script( $this->plugin_slug . '-widget-script', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
+  wp_enqueue_style( $this->plugin_slug . '-widget-style', plugins_url( 'assets/css/widget.css', dirname( __FILE__ ) ), $this->version );
+
+  $object_name = 'wpr_object_' . uniqid();
 
   $object = array(
     'title'       => $instance['title'],
+    'api_nonce'   => wp_create_nonce( 'wp_rest' ),
+    'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
   );
 
-  wp_localize_script( $this->plugin_slug . '-widget-script', 'wpr_object', $object );
+  wp_localize_script( $this->plugin_slug . '-widget-script', $object_name, $object );
 
   echo $args['before_widget'];
 
-  ?><div id="wp-reactivate-widget"></div><?php
+  ?><div class="wp-reactivate-widget" data-object-id="<?php echo $object_name ?>"></div><?php
 
   echo $args['after_widget'];
 }

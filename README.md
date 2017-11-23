@@ -60,7 +60,7 @@ export default class Shortcode extends Component {
     return (
       <div className="wrap">
         <h1>WP Reactivate Frontend</h1>
-        <p>Title: {wpr_object.title}</p>
+        <p>Title: {this.props.wpObject.title}</p>
       </div>
     );
   }
@@ -99,7 +99,7 @@ export default class Widget extends Component {
     return (
       <div className="wrap">
         <h1>WP Reactivate Widget</h1>
-        <p>Title: {wpr_object.title}</p>
+        <p>Title: {this.props.wpObject.title}</p>
       </div>
     );
   }

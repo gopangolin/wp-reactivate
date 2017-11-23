@@ -49,7 +49,7 @@ public function shortcode( $atts ) {
 }
 ```
 
-You can access the shortcode attributes via the ```wpr_object``` in your React container component.
+You can access the shortcode attributes via the ```wpObject``` prop which is passed into your React container component.
 
 *app/containers/Shortcode.jsx* 
 ```javascript =1
@@ -88,7 +88,7 @@ public function widget( $args, $instance ) {
   echo $args['after_widget'];
 }
 ```
-You can access the widget options via the ```wpr_object``` in your React container component.
+You can access the widget options via the ```wpObject``` prop which is passed into your React container component.
 
 *app/containers/Widget.jsx* 
 ```javascript =1

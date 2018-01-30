@@ -13,7 +13,7 @@
  * Plugin Name:       WP-Reactivate
  * Plugin URI:        https://gopangolin.com
  * Description:       React boilerplate for WordPress plugins
- * Version:           0.8.1
+ * Version:           0.8.2
  * Author:            pangolin
  * Author URI:        https://gopangolin.com
  * Text Domain:       wp-reactivate
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WP_REACTIVATE_VERSION', '0.8.1' );
+define( 'WP_REACTIVATE_VERSION', '0.8.2' );
 
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );

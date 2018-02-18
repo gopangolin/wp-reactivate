@@ -83,27 +83,30 @@ export default class Admin extends Component {
   render() {
     return (
       <div className="wrap">
-        <h1>WP Reactivate Settings</h1>
-        <label>
-        Example Setting:
-          <input
-            type="text"
-            value={this.state.example_setting}
-            onChange={this.updateInput}
-          />
-        </label>
-        <button
-          type="submit"
-          id="save"
-          className="button button-primary"
-          onClick={this.handleSave}
-        >Save</button>
-        <button
-          type="submit"
-          id="delete"
-          className="button button-primary"
-          onClick={this.handleDelete}
-        >Delete</button>
+        <form>
+          <h1>WP Reactivate Settings</h1>
+          
+          <label>
+          Example Setting:
+            <input
+              type="text"
+              value={this.state.example_setting}
+              onChange={this.updateInput}
+            />
+          </label>
+
+          <button
+            id="save"
+            className="button button-primary"
+            onClick={this.handleSave}
+          >Save</button>
+
+          <button
+            id="delete"
+            className="button button-primary"
+            onClick={this.handleDelete}
+          >Delete</button>
+        </form>
       </div>
     );
   }

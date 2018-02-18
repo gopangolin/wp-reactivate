@@ -10,10 +10,12 @@
  * @copyright 2017 Pangolin (Pty) Ltd
  */
 
+namespace Pangolin\WPR;
+
 /**
- * @subpackage WPReactivate_Admin
+ * @subpackage Admin
  */
-class WPReactivate_Admin {
+class Admin {
 
 	/**
 	 * Instance of this class.
@@ -68,7 +70,7 @@ class WPReactivate_Admin {
 	 * @since     0.8.0
 	 */
 	private function __construct() {
-		$plugin = WPReactivate::get_instance();
+		$plugin = Plugin::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 		$this->version = $plugin->get_plugin_version();
 
@@ -186,7 +188,6 @@ class WPReactivate_Admin {
 	 */
 	public function register_settings() {
 		register_setting( 'general', 'wpreactivate', array(
-			'show_in_rest' 	=> true,
 			'type'			=> 'string',
 			'description'	=> __( 'WP Reactivate Settings', $this->plugin_slug )
 		) );

@@ -10,10 +10,12 @@
  * @copyright 2017 Pangolin (Pty) Ltd
  */
 
+namespace Pangolin\WPR;
+
 /**
- * @subpackage WPReactivate
+ * @subpackage Widget
  */
-class WPR_Widget extends WP_Widget {
+class Widget extends \WP_Widget {
 
 	/**
 	 * Initialize the widget
@@ -21,7 +23,7 @@ class WPR_Widget extends WP_Widget {
 	 * @since 0.8.0
 	 */
 	public function __construct() {
-		$plugin = WPReactivate::get_instance();
+		$plugin = Plugin::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 		$this->version = $plugin->get_plugin_version();
 

@@ -22,42 +22,78 @@
  * Domain Path:       /languages
  */
 
+
+namespace Pangolin\WPR;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WP_REACTIVATE_VERSION', '0.8.2' );
+define( 'WP_REACTIVATE_VERSION', '0.9.0' );
 
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-admin.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-shortcode.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-widget.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wpr-rest-controller.php' );
+/**
+ * Autoloader
+ *
+ * @param string $class The fully-qualified class name.
+ * @return void
+ *
+ *  * @since 0.9.0
+ */
+spl_autoload_register(function ($class) {
+    
+    // project-specific namespace prefix
+    $prefix = 'Pangolin\\WPR\\';
+
+    // base directory for the namespace prefix
+    $base_dir = __DIR__ . '/includes/';
+
+    // does the class use the namespace prefix?
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        // no, move to the next registered autoloader
+        return;
+    }
+
+    // get the relative class name
+    $relative_class = substr($class, $len);
+
+    // replace the namespace prefix with the base directory, replace namespace
+    // separators with directory separators in the relative class name, append
+    // with .php
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    // if the file exists, require it
+    if (file_exists($file)) {
+        require $file;
+    }
+});
 
 /**
  * Initialize Plugin
  *
- * @since 0.8.0
+ * @since 0.9.0
  */
-function wp_reactivate_init() {
-	$wpr = WPReactivate::get_instance();
-	$wpr_shortcode = WPReactivate_Shortcode::get_instance();
-	$wpr_admin = WPReactivate_Admin::get_instance();
-	$wpr_rest = WPReactivate_REST_Controller::get_instance();
+function init() {
+	$wpr = Plugin::get_instance();
+	$wpr_shortcode = Shortcode::get_instance();
+	$wpr_admin = Admin::get_instance();
+	$wpr_rest = REST_Controller::get_instance();
 }
-add_action( 'plugins_loaded', 'wp_reactivate_init' );
+add_action( 'plugins_loaded', 'Pangolin\\WPR\\init' );
+
+
 
 /**
  * Register the widget
  *
- * @since 0.8.0
+ * @since 0.9.0
  */
-function wp_reactivate_widget() {
-	register_widget( 'WPR_Widget' );
+function widget_init() {
+	return register_widget( new Widget );
 }
-add_action( 'widgets_init', 'wp_reactivate_widget' );
+add_action( 'widgets_init', 'Pangolin\\WPR\\widget_init' );
 
 /**
  * Register activation and deactivation hooks

@@ -1,6 +1,21 @@
 <?php
+/**
+ * WP-Reactivate
+ *
+ *
+ * @package   WP-Reactivate
+ * @author    Pangolin
+ * @license   GPL-3.0
+ * @link      https://gopangolin.com
+ * @copyright 2017 Pangolin (Pty) Ltd
+ */
 
-class WPReactivate_REST_Controller {
+namespace Pangolin\WPR;
+
+/**
+ * @subpackage REST_Controller
+ */
+class REST_Controller {
     /**
 	 * Instance of this class.
 	 *
@@ -55,7 +70,7 @@ class WPReactivate_REST_Controller {
 
         register_rest_route( $namespace, '/settings/', array(
             array(
-                'methods'               => WP_REST_Server::READABLE,
+                'methods'               => \WP_REST_Server::READABLE,
                 'callback'              => array( $this, 'get_settings' ),
                 'permission_callback'   => array( $this, 'setting_permissions_check' ),
                 'args'                  => array(),
@@ -64,7 +79,7 @@ class WPReactivate_REST_Controller {
 
         register_rest_route( $namespace, '/settings/', array(
             array(
-                'methods'               => WP_REST_Server::CREATABLE,
+                'methods'               => \WP_REST_Server::CREATABLE,
                 'callback'              => array( $this, 'update_settings' ),
                 'permission_callback'   => array( $this, 'setting_permissions_check' ),
                 'args'                  => array(),
@@ -84,7 +99,7 @@ class WPReactivate_REST_Controller {
             'wpreactivate' => get_option('wpreactivate'),
         );
 
-        return new WP_REST_Response( $data, 200 );
+        return new \WP_REST_Response( $data, 200 );
     }
     
     /**
@@ -95,7 +110,7 @@ class WPReactivate_REST_Controller {
      */
     public function update_settings( $request ) {
         update_option('wpreactivate', $request->get_param('wpreactivate'));
-        return new WP_REST_Response( true, 200 );
+        return new \WP_REST_Response( true, 200 );
     }
 
     /**

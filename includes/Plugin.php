@@ -10,10 +10,12 @@
  * @copyright 2017 Pangolin (Pty) Ltd
  */
 
+namespace Pangolin\WPR;
+
 /**
- * @package WP-Reactivate
+ * @subpackage Plugin
  */
-class WPReactivate {
+class Plugin {
 
 	/**
 	 * The variable name is used as the text domain when internationalizing strings

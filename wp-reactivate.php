@@ -98,6 +98,6 @@ add_action( 'widgets_init', 'Pangolin\\WPR\\widget_init' );
 /**
  * Register activation and deactivation hooks
  */
-\register_activation_hook( __FILE__, 'Pangolin\\WPR\\Plugin::activate' );
-\register_deactivation_hook( __FILE__, 'Pangolin\\WPR\\Plugin::deactivate' );
+register_activation_hook( __FILE__, array( 'Pangolin\\WPR\\Plugin', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'Pangolin\\WPR\\Plugin', 'deactivate' ) );
 

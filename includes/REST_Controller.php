@@ -67,21 +67,40 @@ class REST_Controller {
     public function register_routes() {
         $version = '1';
         $namespace = 'wp-reactivate/v' . $version;
+        $endpoint = '/example/';
 
-        register_rest_route( $namespace, '/settings/', array(
+        register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::READABLE,
-                'callback'              => array( $this, 'get_settings' ),
-                'permission_callback'   => array( $this, 'setting_permissions_check' ),
+                'callback'              => array( $this, 'get_example' ),
+                'permission_callback'   => array( $this, 'example_permissions_check' ),
                 'args'                  => array(),
             ),
         ) );
 
-        register_rest_route( $namespace, '/settings/', array(
+        register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::CREATABLE,
-                'callback'              => array( $this, 'update_settings' ),
-                'permission_callback'   => array( $this, 'setting_permissions_check' ),
+                'callback'              => array( $this, 'update_example' ),
+                'permission_callback'   => array( $this, 'example_permissions_check' ),
+                'args'                  => array(),
+            ),
+        ) );
+
+        register_rest_route( $namespace, $endpoint, array(
+            array(
+                'methods'               => \WP_REST_Server::EDITABLE,
+                'callback'              => array( $this, 'update_example' ),
+                'permission_callback'   => array( $this, 'example_permissions_check' ),
+                'args'                  => array(),
+            ),
+        ) );
+
+        register_rest_route( $namespace, $endpoint, array(
+            array(
+                'methods'               => \WP_REST_Server::DELETABLE,
+                'callback'              => array( $this, 'delete_example' ),
+                'permission_callback'   => array( $this, 'example_permissions_check' ),
                 'args'                  => array(),
             ),
         ) );
@@ -94,23 +113,41 @@ class REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function get_settings( $request ) {
-        $data = array(
-            'wpreactivate' => get_option('wpreactivate'),
-        );
+    public function get_example( $request ) {
+        $example_option = get_option( 'wpr_example_setting' );
 
-        return new \WP_REST_Response( $data, 200 );
+        if ( ! $example_option )
+            return new \WP_REST_Response( '', 204 );
+
+
+        return new \WP_REST_Response( $example_option, 200 );
     }
-    
+
     /**
-     * Update Settings
+     * Create OR Update Example
      *
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function update_settings( $request ) {
-        update_option('wpreactivate', $request->get_param('wpreactivate'));
-        return new \WP_REST_Response( true, 200 );
+    public function update_example( $request ) {
+        $updated = update_option( 'wpr_example_setting', $request->get_param( 'example_setting' ) );
+
+        return new \WP_REST_Response( array(
+            'success'   => $updated,
+            'value'     => $request->get_param( 'example_setting' )
+        ), 200 );
+    }
+
+    /**
+     * Delete Example
+     *
+     * @param WP_REST_Request $request Full data about the request.
+     * @return WP_Error|WP_REST_Request
+     */
+    public function delete_example( $request ) {
+        $deleted = delete_option( 'wpr_example_setting' );
+
+        return new \WP_REST_Response( $deleted, 200 );
     }
 
     /**
@@ -119,7 +156,7 @@ class REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
-    public function setting_permissions_check( $request ) {
+    public function example_permissions_check( $request ) {
         return current_user_can( 'manage_options' );
     }
 }

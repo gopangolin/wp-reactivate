@@ -74,7 +74,7 @@ class Plugin {
 	 * @since    0.8.0
 	 */
 	public static function activate() {
-		update_option( 'wpreactivate', 'Test Value' );
+		add_option( 'wpr_example_setting' );
 	}
 
 	/**

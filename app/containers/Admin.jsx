@@ -7,14 +7,14 @@ export default class Admin extends Component {
     super(props);
 
     this.state = {
-      settings: undefined
+      example_setting: undefined
     };
 
     this.getSetting();
   }
 
   getSetting = () => {
-    fetch(`${this.props.wpObject.api_url}settings`, {
+    fetch(`${this.props.wpObject.api_url}example`, {
       credentials: 'same-origin',
       method: 'GET',
       headers: {
@@ -24,13 +24,13 @@ export default class Admin extends Component {
     })
     .then(response => response.json())
     .then(
-      (json) => this.setState({ settings: json.wpreactivate }),
+      (json) => this.setState({ example_setting: json }),
       (err) => console.log('error', err)
     );
   };
 
   updateSetting = () => {
-    fetch(`${this.props.wpObject.api_url}settings`, {
+    fetch(`${this.props.wpObject.api_url}example`, {
       credentials: 'same-origin',
       method: 'POST',
       headers: {
@@ -38,47 +38,75 @@ export default class Admin extends Component {
         'X-WP-Nonce': this.props.wpObject.api_nonce,
       },
       body: JSON.stringify({
-        wpreactivate: this.state.settings,
+        example_setting: this.state.example_setting,
       }),
     })
     .then(response => response.json())
     .then(
-      (json) => this.setState({ settings: json.wpreactivate }),
+      (json) => this.setState({ example_setting: json.value }),
+      (err) => console.log('error', err)
+    );
+  }
+
+  deleteSetting = () => {
+    fetch(`${this.props.wpObject.api_url}example`, {
+      credentials: 'same-origin',
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-WP-Nonce': this.props.wpObject.api_nonce,
+      },
+    })
+    .then(response => response.json())
+    .then(
+      (json) => this.setState({ example_setting: '' }),
       (err) => console.log('error', err)
     );
   }
 
   updateInput = (e) => {
     this.setState({
-      settings: e.target.value,
+      example_setting: e.target.value,
     })
   }
 
-  handleSubmit = (event) => {
+  handleSave = (event) => {
     event.preventDefault();
+    console.log(this.state);
     this.updateSetting();
+  }
+
+  handleDelete = (event) => {
+    event.preventDefault();
+    this.deleteSetting();
   }
 
   render() {
     return (
       <div className="wrap">
         <h1>WP Reactivate Settings</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-          Demo Setting:
-            <input
-              type="text"
-              value={this.state.settings}
-              onChange={this.updateInput}
-            />
-          </label>
+        <label>
+        Demo Setting:
           <input
-            type="submit"
-            id="submit"
-            className="button button-primary"
-            value={'Save'}
+            type="text"
+            value={this.state.example_setting}
+            onChange={this.updateInput}
           />
-        </form>
+        </label>
+        <input
+          type="submit"
+          id="save"
+          className="button button-primary"
+          value={'Save'}
+          onClick={this.handleSave}
+        />
+        <input
+          type="submit"
+          id="delete"
+          className="button button-primary"
+          value={'Delete'}
+          onClick={this.handleDelete}
+        />
       </div>
     );
   }

@@ -93,9 +93,6 @@ class Admin {
 
 		// Add plugin action link point to settings page
 		add_filter( 'plugin_action_links_' . $this->plugin_basename, array( $this, 'add_action_links' ) );
-
-		// Register settings
-		add_filter( 'init', array( $this, 'register_settings') );
 	}
 
 	/**
@@ -180,17 +177,4 @@ class Admin {
 			$links
 		);
 	}
-
-	/**
-	 * Register settings.
-	 *
-	 * @since    0.8.0
-	 */
-	public function register_settings() {
-		register_setting( 'general', 'wpreactivate', array(
-			'type'			=> 'string',
-			'description'	=> __( 'WP Reactivate Settings', $this->plugin_slug )
-		) );
-	}
-
 }

@@ -116,11 +116,17 @@ class REST_Controller {
     public function get_example( $request ) {
         $example_option = get_option( 'wpr_example_setting' );
 
-        if ( ! $example_option )
-            return new \WP_REST_Response( '', 204 );
+        if ( ! $example_option ) {
+            return new \WP_REST_Response( array(
+                'success' => true,
+                'value' => ''
+            ), 200 );
+        }
 
-
-        return new \WP_REST_Response( $example_option, 200 );
+        return new \WP_REST_Response( array(
+            'success' => true,
+            'value' => $example_option
+        ), 200 );
     }
 
     /**

@@ -7,7 +7,7 @@ export default class Admin extends Component {
     super(props);
 
     this.state = {
-      example_setting: undefined
+      example_setting: '',
     };
 
     this.getSetting();
@@ -24,7 +24,7 @@ export default class Admin extends Component {
     })
     .then(response => response.json())
     .then(
-      (json) => this.setState({ example_setting: json }),
+      (json) => this.setState({ example_setting: json.value }),
       (err) => console.log('error', err)
     );
   };
@@ -85,7 +85,7 @@ export default class Admin extends Component {
       <div className="wrap">
         <h1>WP Reactivate Settings</h1>
         <label>
-        Demo Setting:
+        Example Setting:
           <input
             type="text"
             value={this.state.example_setting}

@@ -64,15 +64,14 @@ export default class Admin extends Component {
     );
   }
 
-  updateInput = (e) => {
+  updateInput = (event) => {
     this.setState({
-      example_setting: e.target.value,
+      example_setting: event.target.value,
     })
   }
 
   handleSave = (event) => {
     event.preventDefault();
-    console.log(this.state);
     this.updateSetting();
   }
 
@@ -93,20 +92,18 @@ export default class Admin extends Component {
             onChange={this.updateInput}
           />
         </label>
-        <input
+        <button
           type="submit"
           id="save"
           className="button button-primary"
-          value={'Save'}
           onClick={this.handleSave}
-        />
-        <input
+        >Save</button>
+        <button
           type="submit"
           id="delete"
           className="button button-primary"
-          value={'Delete'}
           onClick={this.handleDelete}
-        />
+        >Delete</button>
       </div>
     );
   }

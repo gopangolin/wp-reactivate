@@ -13,5 +13,5 @@ export default class Shortcode extends Component {
 }
 
 Shortcode.propTypes = {
-  wpObject: PropTypes.obj
+  wpObject: PropTypes.object
 };

@@ -110,5 +110,5 @@ export default class Admin extends Component {
 }
 
 Admin.propTypes = {
-  wpObject: PropTypes.obj
+  wpObject: PropTypes.object
 };

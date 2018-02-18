@@ -13,5 +13,5 @@ export default class Widget extends Component {
 }
 
 Widget.propTypes = {
-  wpObject: PropTypes.obj
+  wpObject: PropTypes.object
 };

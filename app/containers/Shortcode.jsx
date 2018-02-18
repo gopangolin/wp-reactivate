@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Shortcode extends Component {
   render() {
-    console.log(this.props);
     return (
       <div className="wrap">
         <h1>WP Reactivate Frontend</h1>
@@ -11,3 +11,7 @@ export default class Shortcode extends Component {
     );
   }
 }
+
+Shortcode.propTypes = {
+  wpObject: PropTypes.obj
+};

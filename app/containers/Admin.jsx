@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch';
 
 export default class Admin extends Component {
@@ -82,3 +83,7 @@ export default class Admin extends Component {
     );
   }
 }
+
+Admin.propTypes = {
+  wpObject: PropTypes.obj
+};

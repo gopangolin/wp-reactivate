@@ -33,7 +33,7 @@ entry: {
 ### Using the Shortcode
 In order to get the shortcode attributes into our Javascript we need to pass them to an object which will be made available to the *shortcode.js* app via ```wp_localize_script```. Be careful with the security of data you pass here as this will be output in a ```<script>``` tag in the rendered html.
 
-*includes/class-wpr-shortcode.php*
+*includes/Shortcode.php*
 ```php =79
 public function shortcode( $atts ) {
   wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
@@ -71,11 +71,12 @@ export default class Shortcode extends Component {
   }
 }
 ```
+
 ### Using the Widget
 In order to get the widget options into our Javascript we need to pass them to an object which will be made available to the *widget.js* app via ```wp_localize_script```. Be careful with the security of data you pass here as this will be output in a ```<script>``` tag in the rendered html.
 
 
-*includes/class-wpr-widget.php*
+*includes/Widget.php*
 ```php =41
 public function widget( $args, $instance ) {
   wp_enqueue_script( $this->plugin_slug . '-widget-script', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
@@ -116,35 +117,38 @@ export default class Widget extends Component {
 }
 
 ```
+
+### Using REST Controllers
+
+We have included a single base REST controller class in the plugin. You will need to use this controller to create endpoints to interact with your React components. Depending on the complexity of your plugin you may need to have multiple controllers or may want to extend default WordPress REST API endpoints. 
+
+We have chosen the custom controller approach for its control and flexibility. Please see the WordPress developer documentation on adding [custom endpoints](https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/) and specifically the [controller pattern](https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/#the-controller-pattern) to familiarise your with our choice of implementation.
+
+It is important to become well versed in using the [WordPress REST API](https://developer.wordpress.org/rest-api/) as this is how you will be passing data to and from your React applications.
 ### Using the Settings Page
-In our admin class we add a sub menu page to the Settings menu using ```add_options_page``` and register a setting to be used on the page.
+In our admin class we add a sub menu page to the Settings menu using ```add_options_page``` and render the React Admin container onto the root DOM node.
 
-We set ```'show_in_rest'``` to ```true``` when registering our setting in order to access our options via the REST API.
-
-*includes/class-wpr-admin.php*
-```php =187
-public function register_settings() {
-    register_setting( 'general', 'wpreactivate', array(
-        'show_in_rest' 	=> true,
-        'type'			=> 'string',
-        'description'	=> __( 'WP Reactivate Settings', $this->plugin_slug )
-    ) );
+*includes/Admin.php*
+``` php =166
+public function display_plugin_admin_page() {
+ ?><div id="wp-reactivate-admin"></div><?php
 }
 ```
 
-In the React container component we show how to retrieve and update this setting via the WordPress REST API default Settings  endpoint.
+
+In the React container component we show how to retrieve and update this setting via this example REST controller.
 
 We polyfill the browser [Fetch API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) to make requests to the WordPress REST API. It is a powerful API, which can be seen as an evolution of XMLHttpRequest or alternative to jQuery.ajax().
 
 *app/containers/Admin.jsx*
 ```javascript
 getSetting = () => {
-    fetch(`${wpr_object.api_url}settings`, {
+    fetch(`${this.props.wpObject.api_url}settings`, {
         credentials: 'same-origin',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-WP-Nonce': wpr_object.api_nonce,
+            'X-WP-Nonce': this.props.wpObject.api_nonce,
         },
     })
     .then(response => response.json())
@@ -162,5 +166,6 @@ getSetting = () => {
 | [Webpack](http://webpack.js.org) | For bundling our JavaScript assets. |
 | [ESLint](http://eslint.org/)| Pluggable linting utility for JavaScript and JSX  |
 
+The boilerplate has been updated to use PHP **namespaces and autoloading**. Please see Tom McFarlin's [article](https://tommcfarlin.com/namespaces-and-autoloading-2017/) on the subject if you are not familiar.
 ## Credits
 *Made by [Pangolin](https://gopangolin.com)*

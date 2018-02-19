@@ -49,7 +49,7 @@ class Widget extends \WP_Widget {
 		$object = array(
 			'title'       => $instance['title'],
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
+			'api_url'	  => rest_url( 'wp-reactivate/v1/' ),
 		);
 
 		wp_localize_script( $this->plugin_slug . '-widget-script', $object_name, $object );

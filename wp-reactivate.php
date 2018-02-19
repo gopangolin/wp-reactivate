@@ -79,7 +79,7 @@ function init() {
 	$wpr = Plugin::get_instance();
 	$wpr_shortcode = Shortcode::get_instance();
 	$wpr_admin = Admin::get_instance();
-	$wpr_rest = REST_Controller::get_instance();
+	$wpr_rest = Endpoint\Example::get_instance();
 }
 add_action( 'plugins_loaded', 'Pangolin\\WPR\\init' );
 

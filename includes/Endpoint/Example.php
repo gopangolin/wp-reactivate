@@ -10,12 +10,12 @@
  * @copyright 2017 Pangolin (Pty) Ltd
  */
 
-namespace Pangolin\WPR;
+namespace Pangolin\WPR\Endpoint;
 
 /**
  * @subpackage REST_Controller
  */
-class REST_Controller {
+class Example {
     /**
 	 * Instance of this class.
 	 *

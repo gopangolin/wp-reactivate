@@ -3,4 +3,4 @@
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
   exit();
 
-delete_option( 'wpreactivate' );
+delete_option( 'wpr_example_setting' );

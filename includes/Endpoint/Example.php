@@ -116,6 +116,7 @@ class Example {
     public function get_example( $request ) {
         $example_option = get_option( 'wpr_example_setting' );
 
+        // Don't return false if there is no option
         if ( ! $example_option ) {
             return new \WP_REST_Response( array(
                 'success' => true,
@@ -153,7 +154,10 @@ class Example {
     public function delete_example( $request ) {
         $deleted = delete_option( 'wpr_example_setting' );
 
-        return new \WP_REST_Response( $deleted, 200 );
+        return new \WP_REST_Response( array(
+            'success'   => $deleted,
+            'value'     => ''
+        ), 200 );
     }
 
     /**

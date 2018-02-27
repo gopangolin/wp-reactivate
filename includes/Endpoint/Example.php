@@ -108,7 +108,7 @@ class Example {
     }
 
     /**
-     * Get Settings
+     * Get Example
      *
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request

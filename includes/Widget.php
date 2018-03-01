@@ -28,10 +28,10 @@ class Widget extends \WP_Widget {
 		$this->version = $plugin->get_plugin_version();
 
 		$widget_ops = array(
-			'description' => esc_html__( 'WP Reactivate demo widget.', 'wp-reactivate' ),
+			'description' => esc_html__( 'WP Reactivate demo widget.', $this->plugin_slug ),
 		);
 
-		parent::__construct( 'wpr-widget', esc_html__( 'WP Reactivate', 'wp-reactivate' ), $widget_ops );
+		parent::__construct( 'wpr-widget', esc_html__( 'WP Reactivate', $this->plugin_slug ), $widget_ops );
 	}
 
 	/**

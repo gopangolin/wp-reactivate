@@ -30,7 +30,7 @@ export default class Admin extends Component {
   updateSetting = () => {
     this.fetchWP.post( 'example', { example_setting: this.state.example_setting } )
     .then(
-      (json) => this.setState({ example_setting: json.value }),
+      (json) => this.processOkResponse(json, 'saved'),
       (err) => console.log('error', err)
     );
   }
@@ -38,9 +38,20 @@ export default class Admin extends Component {
   deleteSetting = () => {
     this.fetchWP.delete( 'example' )
     .then(
-      (json) => this.setState({ example_setting: '' }),
+      (json) => this.processOkResponse(json, 'deleted'),
       (err) => console.log('error', err)
     );
+  }
+
+  processOkResponse = (json, action) => {
+    if (json.success) {
+      this.setState({
+        example_setting: json.value,
+        saved_example_setting: json.value,
+      });
+    } else {
+      console.log(`Setting was not ${action}.`, json);
+    }
   }
 
   updateInput = (event) => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-fetch';
+
+import fetchWP from '../utils/fetchWP';
 
 export default class Admin extends Component {
   constructor(props) {
@@ -10,38 +11,24 @@ export default class Admin extends Component {
       example_setting: '',
     };
 
+    this.fetchWP = new fetchWP({
+      restURL: this.props.wpObject.api_url,
+      restNonce: this.props.wpObject.api_nonce,
+    });
+
     this.getSetting();
   }
 
   getSetting = () => {
-    fetch(`${this.props.wpObject.api_url}example`, {
-      credentials: 'same-origin',
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': this.props.wpObject.api_nonce,
-      },
-    })
-    .then(response => response.json())
+    this.fetchWP.get( 'example' )
     .then(
       (json) => this.setState({ example_setting: json.value }),
-      (err) => console.log('error', err)
+      (err) => console.log( 'error', err )
     );
   };
 
   updateSetting = () => {
-    fetch(`${this.props.wpObject.api_url}example`, {
-      credentials: 'same-origin',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': this.props.wpObject.api_nonce,
-      },
-      body: JSON.stringify({
-        example_setting: this.state.example_setting,
-      }),
-    })
-    .then(response => response.json())
+    this.fetchWP.post( 'example', { example_setting: this.state.example_setting } )
     .then(
       (json) => this.setState({ example_setting: json.value }),
       (err) => console.log('error', err)
@@ -49,15 +36,7 @@ export default class Admin extends Component {
   }
 
   deleteSetting = () => {
-    fetch(`${this.props.wpObject.api_url}example`, {
-      credentials: 'same-origin',
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': this.props.wpObject.api_nonce,
-      },
-    })
-    .then(response => response.json())
+    this.fetchWP.delete( 'example' )
     .then(
       (json) => this.setState({ example_setting: '' }),
       (err) => console.log('error', err)
@@ -67,7 +46,7 @@ export default class Admin extends Component {
   updateInput = (event) => {
     this.setState({
       example_setting: event.target.value,
-    })
+    });
   }
 
   handleSave = (event) => {

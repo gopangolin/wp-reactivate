@@ -22,7 +22,10 @@ export default class Admin extends Component {
   getSetting = () => {
     this.fetchWP.get( 'example' )
     .then(
-      (json) => this.setState({ example_setting: json.value }),
+      (json) => this.setState({
+        example_setting: json.value,
+        saved_example_setting: json.value
+      }),
       (err) => console.log( 'error', err )
     );
   };
@@ -62,7 +65,11 @@ export default class Admin extends Component {
 
   handleSave = (event) => {
     event.preventDefault();
-    this.updateSetting();
+    if ( this.state.example_setting === this.state.saved_example_setting ) {
+      console.log('Setting unchanged');
+    } else {
+      this.updateSetting();
+    }
   }
 
   handleDelete = (event) => {

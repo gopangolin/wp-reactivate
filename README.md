@@ -2,6 +2,23 @@
 # WP Reactivate
 WP Reactivate is a React boilerplate built specifically for WordPress, allowing you to quickly and easily integrate React into your WordPress plugins.
 
+<!-- TOC -->
+
+- [WP Reactivate](#wp-reactivate)
+    - [Setup and installation](#setup-and-installation)
+    - [Usage](#usage)
+    - [Quick Start](#quick-start)
+        - [Introduction](#introduction)
+        - [Using the Shortcode](#using-the-shortcode)
+        - [Using the Widget](#using-the-widget)
+        - [Using REST Controllers](#using-rest-controllers)
+        - [Using the Settings Page](#using-the-settings-page)
+        - [Using fetchWP](#using-fetchwp)
+    - [Technologies](#technologies)
+    - [Credits](#credits)
+
+<!-- /TOC -->
+
 ## Setup and installation
 * **Install [Node 4.0.0 or greater](https://nodejs.org)**
 * **Install [Yarn](https://yarnpkg.com/en/docs/install)** (Or use npm if you prefer)
@@ -44,7 +61,7 @@ public function shortcode( $atts ) {
   $object = shortcode_atts( array(
     'title'       => 'Hello world',
     'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-    'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
+    'api_url'	  => rest_url( 'wp-reactivate/v1/' ),
   ), $atts, 'wp-reactivate' );
 
   wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );
@@ -87,7 +104,7 @@ public function widget( $args, $instance ) {
   $object = array(
     'title'       => $instance['title'],
     'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-    'api_url'	  => site_url( '/wp-json/wp-reactivate/v1/' ),
+    'api_url'	  => rest_url( 'wp-reactivate/v1/' ),
   );
 
   wp_localize_script( $this->plugin_slug . '-widget-script', $object_name, $object );
@@ -136,28 +153,52 @@ public function display_plugin_admin_page() {
 ```
 
 
+
+
+### Using fetchWP
+
+We have provided a utility class called fetchWP which is a simple abstraction over the [Fetch API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) which allows you to eaily make requests to the WordPress REST API.
+
 In the React container component we show how to retrieve and update this setting via this example REST controller.
 
-We polyfill the browser [Fetch API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) to make requests to the WordPress REST API. It is a powerful API, which can be seen as an evolution of XMLHttpRequest or alternative to jQuery.ajax().
+First we initiliaze fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST none which can be supplied from our wpObject.
 
 *app/containers/Admin.jsx*
 ```javascript
-getSetting = () => {
-    fetch(`${this.props.wpObject.api_url}settings`, {
-        credentials: 'same-origin',
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-WP-Nonce': this.props.wpObject.api_nonce,
-        },
-    })
-    .then(response => response.json())
-    .then(
-        (json) => this.setState({ settings: json.wpreactivate }),
-        (err) => console.log('error', err)
-    );
-};
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      example_setting: '',
+    };
+
+    this.fetchWP = new fetchWP({
+      restURL: this.props.wpObject.api_url,
+      restNonce: this.props.wpObject.api_nonce,
+    });
+
+    this.getSetting();
+  }
 ```
+
+In the getSetting call you can now see how we use the utility to perform a GET request on the 'example' endpoint.
+
+*app/containers/Admin.jsx*
+```javascript
+  getSetting = () => {
+    this.fetchWP.get( 'example' )
+    .then(
+      (json) => this.setState({
+        example_setting: json.value,
+        saved_example_setting: json.value
+      }),
+      (err) => console.log( 'error', err )
+    );
+  };
+```
+
+We have found this utility covers most of our use cases. If you are looking for something more full featured (especially if you are working with standard WP endpoints) then have a look at [node-wpapi](http://wp-api.org/node-wpapi/).
+
 ## Technologies
 | **Tech** | **Description** |
 |----------|-------|

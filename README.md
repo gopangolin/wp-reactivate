@@ -161,7 +161,7 @@ We have provided a utility class called fetchWP which is a simple abstraction ov
 
 In the React container component we show how to retrieve and update this setting via the example [REST controller](#using-rest-controllers) included in the boilerplate.
 
-First we initiliase fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST none which can be supplied from our wpObject.
+First we initialise fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST none which can be supplied from our wpObject.
 
 *app/containers/Admin.jsx*
 ```javascript

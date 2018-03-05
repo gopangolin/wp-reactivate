@@ -8,7 +8,7 @@ export default class Admin extends Component {
     super(props);
 
     this.state = {
-      example_setting: '',
+      exampleSetting: '',
     };
 
     this.fetchWP = new fetchWP({
@@ -23,15 +23,15 @@ export default class Admin extends Component {
     this.fetchWP.get( 'example' )
     .then(
       (json) => this.setState({
-        example_setting: json.value,
-        saved_example_setting: json.value
+        exampleSetting: json.value,
+        savedExampleSetting: json.value
       }),
       (err) => console.log( 'error', err )
     );
   };
 
   updateSetting = () => {
-    this.fetchWP.post( 'example', { example_setting: this.state.example_setting } )
+    this.fetchWP.post( 'example', { exampleSetting: this.state.exampleSetting } )
     .then(
       (json) => this.processOkResponse(json, 'saved'),
       (err) => console.log('error', err)
@@ -49,8 +49,8 @@ export default class Admin extends Component {
   processOkResponse = (json, action) => {
     if (json.success) {
       this.setState({
-        example_setting: json.value,
-        saved_example_setting: json.value,
+        exampleSetting: json.value,
+        savedExampleSetting: json.value,
       });
     } else {
       console.log(`Setting was not ${action}.`, json);
@@ -59,13 +59,13 @@ export default class Admin extends Component {
 
   updateInput = (event) => {
     this.setState({
-      example_setting: event.target.value,
+      exampleSetting: event.target.value,
     });
   }
 
   handleSave = (event) => {
     event.preventDefault();
-    if ( this.state.example_setting === this.state.saved_example_setting ) {
+    if ( this.state.exampleSetting === this.state.savedExampleSetting ) {
       console.log('Setting unchanged');
     } else {
       this.updateSetting();
@@ -87,7 +87,7 @@ export default class Admin extends Component {
           Example Setting:
             <input
               type="text"
-              value={this.state.example_setting}
+              value={this.state.exampleSetting}
               onChange={this.updateInput}
             />
           </label>

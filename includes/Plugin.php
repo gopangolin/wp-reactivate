@@ -57,7 +57,7 @@ class Plugin {
 		return $this->plugin_slug;
 	}
 
-		/**
+	/**
 	 * Return the plugin version.
 	 *
 	 * @since    1.0.0

@@ -87,7 +87,7 @@ class Shortcode {
 		$object = shortcode_atts( array(
 			'title'       => 'Hello world',
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'	  => rest_url( 'wp-reactivate/v1/' ),
+			'api_url'	  => rest_url( $this->plugin_slug . '/v1/' ),
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );

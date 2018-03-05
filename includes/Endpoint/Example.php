@@ -11,6 +11,7 @@
  */
 
 namespace Pangolin\WPR\Endpoint;
+use Pangolin\WPR;
 
 /**
  * @subpackage REST_Controller
@@ -32,6 +33,8 @@ class Example {
 	 * @since     0.8.1
 	 */
 	private function __construct() {
+        $plugin = WPR\Plugin::get_instance();
+		$this->plugin_slug = $plugin->get_plugin_slug();
 	}
 
     /**
@@ -66,7 +69,7 @@ class Example {
      */
     public function register_routes() {
         $version = '1';
-        $namespace = 'wp-reactivate/v' . $version;
+        $namespace = $this->plugin_slug . '/v' . $version;
         $endpoint = '/example/';
 
         register_rest_route( $namespace, $endpoint, array(

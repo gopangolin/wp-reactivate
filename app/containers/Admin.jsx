@@ -9,6 +9,7 @@ export default class Admin extends Component {
 
     this.state = {
       exampleSetting: '',
+      savedExampleSetting: ''
     };
 
     this.fetchWP = new fetchWP({

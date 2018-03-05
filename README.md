@@ -51,7 +51,7 @@ entry: {
 In order to get the shortcode attributes into our Javascript we need to pass them to an object which will be made available to the *shortcode.js* app via ```wp_localize_script```. Be careful with the security of data you pass here as this will be output in a ```<script>``` tag in the rendered html.
 
 *includes/Shortcode.php*
-```php =79
+```php =81
 public function shortcode( $atts ) {
   wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
   wp_enqueue_style( $this->plugin_slug . '-shortcode-style' );
@@ -94,7 +94,7 @@ In order to get the widget options into our Javascript we need to pass them to a
 
 
 *includes/Widget.php*
-```php =41
+```php =43
 public function widget( $args, $instance ) {
   wp_enqueue_script( $this->plugin_slug . '-widget-script', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
   wp_enqueue_style( $this->plugin_slug . '-widget-style', plugins_url( 'assets/css/widget.css', dirname( __FILE__ ) ), $this->version );
@@ -146,7 +146,7 @@ It is important to become well versed in using the [WordPress REST API](https://
 In our admin class we add a sub menu page to the Settings menu using ```add_options_page``` and render the React Admin container onto the root DOM node.
 
 *includes/Admin.php*
-``` php =166
+``` php =163
 public function display_plugin_admin_page() {
  ?><div id="wp-reactivate-admin"></div><?php
 }
@@ -164,7 +164,7 @@ In the React container component we show how to retrieve and update this setting
 First we initialise fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST none which can be supplied from our wpObject.
 
 *app/containers/Admin.jsx*
-```javascript
+```javascript =7
   constructor(props) {
     super(props);
 
@@ -184,7 +184,7 @@ First we initialise fetchWP in the ES6 class constructor of our container compon
 In the getSetting call you can now see how we use the utility to perform a GET request on the 'example' endpoint.
 
 *app/containers/Admin.jsx*
-```javascript
+```javascript =22
   getSetting = () => {
     this.fetchWP.get( 'example' )
     .then(

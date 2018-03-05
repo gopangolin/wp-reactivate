@@ -20,7 +20,7 @@ class Shortcode {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 *
 	 * @var      object
 	 */
@@ -29,7 +29,7 @@ class Shortcode {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     0.8.0
+	 * @since     1.0.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -48,7 +48,7 @@ class Shortcode {
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
-	 * @since     0.8.0
+	 * @since     1.0.0
 	 */
 	private function __construct() {
 		$plugin = Plugin::get_instance();
@@ -62,7 +62,7 @@ class Shortcode {
 	/**
 	 * Handle WP actions and filters.
 	 *
-	 * @since 	0.8.0
+	 * @since 	1.0.0
 	 */
 	private function do_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_scripts' ) );
@@ -71,7 +71,7 @@ class Shortcode {
 	/**
 	 * Register frontend-specific javascript
 	 *
-	 * @since     0.8.0
+	 * @since     1.0.0
 	 */
 	public function register_frontend_scripts() {
 		wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );

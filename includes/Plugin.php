@@ -22,7 +22,7 @@ class Plugin {
 	 * of text. Its value should match the Text Domain file header in the main
 	 * plugin file.
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 *
 	 * @var      string
 	 */
@@ -31,7 +31,7 @@ class Plugin {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 *
 	 * @var      object
 	 */
@@ -40,7 +40,7 @@ class Plugin {
 	/**
 	 * Setup instance attributes
 	 *
-	 * @since     0.8.0
+	 * @since     1.0.0
 	 */
 	private function __construct() {
 		$this->plugin_version = WP_REACTIVATE_VERSION;
@@ -49,7 +49,7 @@ class Plugin {
 	/**
 	 * Return the plugin slug.
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 *
 	 * @return    Plugin slug variable.
 	 */
@@ -60,7 +60,7 @@ class Plugin {
 		/**
 	 * Return the plugin version.
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 *
 	 * @return    Plugin slug variable.
 	 */
@@ -71,7 +71,7 @@ class Plugin {
 	/**
 	 * Fired when the plugin is activated.
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 */
 	public static function activate() {
 		add_option( 'wpr_example_setting' );
@@ -80,7 +80,7 @@ class Plugin {
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 */
 	public static function deactivate() {
 	}
@@ -89,7 +89,7 @@ class Plugin {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     0.8.0
+	 * @since     1.0.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */

@@ -20,7 +20,7 @@ class Widget extends \WP_Widget {
 	/**
 	 * Initialize the widget
 	 *
-	 * @since 0.8.0
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$plugin = Plugin::get_instance();

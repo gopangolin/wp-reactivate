@@ -159,9 +159,9 @@ public function display_plugin_admin_page() {
 
 We have provided a utility class called fetchWP which is a simple abstraction over the [Fetch API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) which allows you to easily make requests to the WordPress REST API.
 
-In the React container component we show how to retrieve and update this setting via this example REST controller.
+In the React container component we show how to retrieve and update this setting via the example [REST controller](#using-rest-controllers) included in the boilerplate.
 
-First we initiliaze fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST none which can be supplied from our wpObject.
+First we initiliase fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST none which can be supplied from our wpObject.
 
 *app/containers/Admin.jsx*
 ```javascript

@@ -161,7 +161,7 @@ We have provided a utility class called fetchWP which is a simple abstraction ov
 
 In the React container component we show how to retrieve and update this setting via the example [REST controller](#using-rest-controllers) included in the boilerplate.
 
-First we initialise fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST none which can be supplied from our wpObject.
+First we initialise fetchWP in the ES6 class constructor of our container component. It requires two parameters being the REST URL and the REST nonce which can be supplied from our wpObject.
 
 *app/containers/Admin.jsx*
 ```javascript =7
@@ -208,5 +208,10 @@ We have found this utility covers most of our use cases. If you are looking for 
 | [ESLint](http://eslint.org/)| Pluggable linting utility for JavaScript and JSX  |
 
 The boilerplate has been updated to use PHP **namespaces and autoloading**. Please see Tom McFarlin's [article](https://tommcfarlin.com/namespaces-and-autoloading-2017/) on the subject if you are not familiar.
+
+## Tutorials
+
+Building a WordPress plugin with React - [Part 1](https://gopangolin.com/building-wordpress-plugin-with-react-part-1/)
+
 ## Credits
 *Made by [Pangolin](https://gopangolin.com)*

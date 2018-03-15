@@ -15,6 +15,7 @@ WP Reactivate is a React boilerplate built specifically for WordPress, allowing 
         - [Using the Settings Page](#using-the-settings-page)
         - [Using fetchWP](#using-fetchwp)
     - [Technologies](#technologies)
+    - [Tutorials](#tutorials)
     - [Credits](#credits)
 
 <!-- /TOC -->

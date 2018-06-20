@@ -1,4 +1,5 @@
 const path = require('path');
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 const webpackConfig = {
   devtool: 'source-map',
@@ -27,6 +28,14 @@ const webpackConfig = {
       },
     ],
   },
+  plugins: [
+    new BrowserSyncPlugin(
+      {
+        // Inset local WordPress proxy here
+        proxy: "<SERVER:PORT>"
+      }
+    )
+  ]
 };
 
 if (process.env.NODE_ENV === 'production') {

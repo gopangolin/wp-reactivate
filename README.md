@@ -26,6 +26,7 @@ WP Reactivate is a React boilerplate built specifically for WordPress, allowing 
 
 ## Usage
 * Install required modules: `yarn` (or `npm install`)
+* Insert your local WordPress URL in webpack.config.js to enable live reloading
 * Build development version of app and watch for changes: `yarn build` (or `npm run build`)
 * Build production version of app:`yarn prod` (or `npm run prod`)
 

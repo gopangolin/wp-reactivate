@@ -1,6 +1,6 @@
 {
   "name": "wp-reactivate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React boilerplate for WordPress plugins",
   "main": "index.js",
   "scripts": {

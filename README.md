@@ -21,7 +21,7 @@ WP Reactivate is a React boilerplate built specifically for WordPress, allowing 
 <!-- /TOC -->
 
 ## Setup and installation
-* **Install [Node 4.0.0 or greater](https://nodejs.org)**
+* **Install [Node 8.12.0 LTS or greater](https://nodejs.org)**
 * **Install [Yarn](https://yarnpkg.com/en/docs/install)** (Or use npm if you prefer)
 
 ## Usage

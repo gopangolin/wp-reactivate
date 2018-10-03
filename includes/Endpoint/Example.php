@@ -140,11 +140,11 @@ class Example {
      * @return WP_Error|WP_REST_Request
      */
     public function update_example( $request ) {
-        $updated = update_option( 'wpr_example_setting', $request->get_param( 'example_setting' ) );
+        $updated = update_option( 'wpr_example_setting', $request->get_param( 'exampleSetting' ) );
 
         return new \WP_REST_Response( array(
             'success'   => $updated,
-            'value'     => $request->get_param( 'example_setting' )
+            'value'     => $request->get_param( 'exampleSetting' )
         ), 200 );
     }
 

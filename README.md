@@ -212,7 +212,7 @@ The boilerplate has been updated to use PHP **namespaces and autoloading**. Plea
 
 ## Tutorials
 
-Building a WordPress plugin with React - [Part 1](https://gopangolin.com/building-wordpress-plugin-with-react-part-1/)
+Building a WordPress plugin with React - [Part 1](https://gopangolin.com/building-wordpress-plugin-with-react-part-1/), [Part 2](https://gopangolin.com/building-wordpress-plugin-with-react-part-2/)
 
 ## Credits
 *Made by [Pangolin](https://gopangolin.com)*

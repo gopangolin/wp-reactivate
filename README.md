@@ -2,7 +2,7 @@
 # WP Reactivate
 WP Reactivate is a React boilerplate built specifically for WordPress, allowing you to quickly and easily integrate React into your WordPress plugins.
 
-⚠️Since the release of Block Editor (Gutenberg) the Javascript ecosystem around WordPress has evolved rapidly. This repository, does not represent the best practices that should be used for React development in the WordPress administration.⚠️
+⚠️Since the release of Block Editor (Gutenberg) the Javascript ecosystem around WordPress has evolved rapidly. This repository, does not represent the best practices that should be used for React development in the WordPress.⚠️
 
 <!-- TOC -->
 

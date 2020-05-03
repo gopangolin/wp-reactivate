@@ -1,6 +1,6 @@
 /* global window, document */
 if (! window._babelPolyfill) {
-  require('@babel/polyfill');
+  require('@babel/polyfill/noConflict');
 }
 
 import React from 'react';

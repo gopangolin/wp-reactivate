@@ -1,115 +1,117 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
-import fetchWP from '../utils/fetchWP';
+import fetchWPImport from "../utils/fetchWP";
 
-export default class Admin extends Component {
-  constructor(props) {
-    super(props);
+export default function Admin({ wpObject: { api_url, api_nonce } }) {
+  const [exampleSetting, setExampleSetting] = useState("");
+  const [savedExampleSetting, setSavedExampleSetting] = useState("");
+  // Store reference to fetchWP object in state
+  const [fetchWP, setFetchWP] = useState(null);
 
-    this.state = {
-      exampleSetting: '',
-      savedExampleSetting: ''
-    };
-
-    this.fetchWP = new fetchWP({
-      restURL: this.props.wpObject.api_url,
-      restNonce: this.props.wpObject.api_nonce,
+  useEffect(() => {
+    const fetchObj = new fetchWPImport({
+      restURL: api_url,
+      restNonce: api_nonce,
     });
+    setFetchWP(fetchObj);
+  }, []);
 
-    this.getSetting();
+  function getSetting() {
+    fetchWP
+      .get("example")
+      .then(({ value }) => {
+        setExampleSetting(value);
+        setSavedExampleSetting(value);
+      })
+      .catch((err) => console.log(err));
   }
 
-  getSetting = () => {
-    this.fetchWP.get( 'example' )
-    .then(
-      (json) => this.setState({
-        exampleSetting: json.value,
-        savedExampleSetting: json.value
-      }),
-      (err) => console.log( 'error', err )
-    );
-  };
+  useEffect(() => {
+    if (!fetchWP) return;
+    getSetting();
+  }, [fetchWP]);
 
-  updateSetting = () => {
-    this.fetchWP.post( 'example', { exampleSetting: this.state.exampleSetting } )
-    .then(
-      (json) => this.processOkResponse(json, 'saved'),
-      (err) => console.log('error', err)
-    );
-  }
-
-  deleteSetting = () => {
-    this.fetchWP.delete( 'example' )
-    .then(
-      (json) => this.processOkResponse(json, 'deleted'),
-      (err) => console.log('error', err)
+  function updateSetting() {
+    fetchWP.post("example", { exampleSetting }).then(
+      (json) => {
+        processOkResponse(json, "saved");
+        console.log(`${exampleSetting} was saved`);
+      },
+      (err) => console.log("error", err)
     );
   }
 
-  processOkResponse = (json, action) => {
+  function deleteSetting() {
+    fetchWP.delete("example").then(
+      (json) => {
+        processOkResponse(json, "deleted");
+        console.log(json, " was deleted");
+      },
+      (err) => console.log("error", err)
+    );
+  }
+
+  function processOkResponse(json, action) {
     if (json.success) {
-      this.setState({
-        exampleSetting: json.value,
-        savedExampleSetting: json.value,
-      });
+      const { value } = json;
+      setExampleSetting(value);
+      setSavedExampleSetting(value);
     } else {
       console.log(`Setting was not ${action}.`, json);
     }
   }
 
-  updateInput = (event) => {
-    this.setState({
-      exampleSetting: event.target.value,
-    });
-  }
-
-  handleSave = (event) => {
-    event.preventDefault();
-    if ( this.state.exampleSetting === this.state.savedExampleSetting ) {
-      console.log('Setting unchanged');
-    } else {
-      this.updateSetting();
+  function updateInput({ target: { value } }) {
+    if (value) {
+      setExampleSetting(value);
     }
   }
 
-  handleDelete = (event) => {
+  function handleSave(event) {
     event.preventDefault();
-    this.deleteSetting();
+    if (exampleSetting === savedExampleSetting) {
+      console.log("Setting unchanged");
+    } else {
+      updateSetting();
+    }
   }
 
-  render() {
-    return (
-      <div className="wrap">
-        <form>
-          <h1>WP Reactivate Settings</h1>
-          
-          <label>
+  function handleDelete(event) {
+    event.preventDefault();
+    deleteSetting();
+  }
+
+  return (
+    <div className="wrap">
+      <form>
+        <h1>WP Reactivate Settings</h1>
+
+        <label>
           Example Setting:
-            <input
-              type="text"
-              value={this.state.exampleSetting}
-              onChange={this.updateInput}
-            />
-          </label>
+          <input type="text" value={exampleSetting} onChange={updateInput} />
+        </label>
 
-          <button
-            id="save"
-            className="button button-primary"
-            onClick={this.handleSave}
-          >Save</button>
+        <button
+          id="save"
+          className="button button-primary"
+          onClick={handleSave}
+        >
+          Save
+        </button>
 
-          <button
-            id="delete"
-            className="button button-primary"
-            onClick={this.handleDelete}
-          >Delete</button>
-        </form>
-      </div>
-    );
-  }
+        <button
+          id="delete"
+          className="button button-primary"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
+      </form>
+    </div>
+  );
 }
 
 Admin.propTypes = {
-  wpObject: PropTypes.object
+  wpObject: PropTypes.object,
 };
